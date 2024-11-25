@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorious</title>
+    <link rel="stylesheet" href="src/teste.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="src/teste.js" defer></script> <!-- Arquivo de JavaScript separado -->
+    <link rel="icon" href="src/fotos/cobraooo.png"  type="image/png">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="container">
+        <div class="logo">
+            <a href="#"><img src="src/fotos/cobraooo.png" alt="Logo"></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Tutorial</a></li>
+            <li><a href="#">Etapas</a>
+                <ul class="dropdown">
+                    <li><a href="#1">Passo 1: Estrutura</a></li>
+                    <li><a href="#2">Passo 2: Importações</a></li>
+                    <li><a href="#3">Passo 3: Estados</a></li>
+                    <li><a href="#4">Passo 4: Comida</a></li>
+                    <li><a href="#5">Passo 5: Desenho</a></li>
+                    <li><a href="#6">Passo 6: Movimento</a></li>
+                    <li><a href="#7">Passo 7: Colisões</a></li>
+                    <li><a href="#8">Passo 8: Loop</a></li>
+                    <li><a href="#9">Passo 9: Controle</a></li>
+                    <li><a href="#10">Passo 10: Reniciar</a></li>
+                    <li><a href="#11">Passo 11: GameOver</a></li>
+                    <li><a href="#12">Passo 12: Estilização</a></li>
+                </ul>
+            </li>
+            <li><a href="https://smvilas.github.io/teste-snakegame/">SnakeGame</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+    <div class="container">
+        <!-- Seção do Tutorial -->
+    <section id="inicio">
+        <h1>Tutorial: Criando o SnakeGame com React</h1><br>
+
+    
+
+        <h2>Passo 1: Estrutura Inicial do Projeto</h2>
+        <p>1. Certifique-se de que tem o Node.js e o npm instalados.</p>
+        <ul>
+            <li>Para verificar, digite node -v e npm -v no terminal.</li>
+            <li>Se não tiver o Node.js instalado: <a href="https://nodejs.org/en/download/prebuilt-installer/current">Node.js</a> </li>
+        </ul>
+        <p>2. Crie um novo projeto React:(Usando o terminal do VSCode ou o terminal do PC)</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-2">
+npx create-react-app snake-game
+cd snake-game
+            </pre>
+        </div>
+
+        <p>3. Estrutura de pastas:</p>
+        <ul>
+            <li>No diretório src, crie uma pasta chamada assets e adicione os arquivos de som (eating.mp3, collision.mp3, gameOver.mp3).</li>
+            <li>Adicione um arquivo App.css para o estilo.</li>
+        </ul>
+        <p>4. Substitua o conteúdo do arquivo App.js pelo código do jogo.</p><br>
+    </section>
+    <section id="2">
+        <h2>Passo 2: Importações e Configuração Inicial</h2><br>
+        <p>No início do arquivo App.js, importamos as dependências principais:</p>
+
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-1">
+import React, { useEffect, useRef, useState } from 'react';
+import './App.css';
+import eatingSound from './assets/eating.mp3';
+import collisionSound from './assets/collision.mp3';
+import gameOverSound from './assets/gameOver.mp3';
+            </pre>
+        </div>
+        <p>* Essas importações incluem:</p>
+        <ul>
+            <li>React: Para criar o componente principal e usar seus hooks(<code>useState</code>, <code>useEffect</code>, <code>useRef</code>).</li>
+            <li>useRef: Para acessar diretamente elementos DOM, como o canvas.</li>
+            <li>useState: Para gerenciar estados do jogo (cobra, comida, direção, etc.).</li>
+            <li>useEffect: Para lidar com ciclos de vida e lógica de jogo (como o loop do jogo).</li>
+            <li>Assets (som): Sons adicionam feedback ao jogador. Você pode substituí-los por outros arquivos se preferir.</li>
+        </ul><br>
+    </section>
+    <section id="3">
+        <h2>Passo 3: Estados e Referências do Jogo</h2>
+        <p>Dentro do componente App, criamos vários estados com o useState:</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-2">
+const [direction, setDirection] = useState(null);
+const [snake, setSnake] = useState([{ x: 270, y: 240 }]);
+const [food, setFood] = useState(getRandomFood());
+const [score, setScore] = useState(0);
+const [gameOver, setGameOver] = useState(false);
+            </pre>
+        </div>
+
+        <ul>
+            <li>direction: Indica a direção atual da cobra. Começa como null (parada).</li>
+            <li>snake: Array de objetos. Cada objeto tem as coordenadas x e y, representando os segmentos da cobra. Começa com um único segmento.</li>
+            <li>food: Objeto contendo a posição e cor da comida.</li>
+            <li>score: A pontuação do jogador, inicializada como 0.</li>
+            <li>gameOver: Define se o jogo terminou ou não.</li>
+        </ul>
+        <p>Referências para o áudio:</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-2">
+const eatingAudio = useRef(new Audio(eatingSound));
+const collisionAudio = useRef(new Audio(collisionSound));
+const gameOverAudio = useRef(new Audio(gameOverSound));
+            </pre>
+        </div>
+        <ul>
+            <li>Usamos useRef para carregar os arquivos de som sem recriá-los em cada renderização.</li>
+        </ul><br>
+    </section>
+    <section id="4">
+        <h2>Passo 4: Gerar Comida Aleatória</h2>
+        <p>Para gerar comida, precisamos de duas funções: uma para a posição e outra para a cor.</p>
+        <p>Gerar Posição:</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-3">
+                function getRandomPosition() {
+                    return Math.floor(Math.random() * 20) * 30;
+                }
+
+            </pre>
+        </div>
+        <ul>
+            <li>Gera uma posição aleatória dentro de uma grade de 600x600 pixels, com células de 30x30.</li>
+        </ul>
+        <p>Gerar Cor:</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-3">
+                function randomColor() {
+                    const red = Math.floor(Math.random() * 256);
+                    const green = Math.floor(Math.random() * 256);
+                    const blue = Math.floor(Math.random() * 256);
+                    return `rgb(${red}, ${green}, ${blue})`;
+                }
+                
+            </pre>
+        </div>
+        <ul>
+            <li>Cria uma cor aleatória em formato RGB.</li>
+        </ul>
+        <p>Comida:</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-3">
+                function getRandomFood() {
+                    return {
+                        x: getRandomPosition(),
+                        y: getRandomPosition(),
+                        color: randomColor(),
+                    };
+                }
+                
+            </pre>
+        </div>
+        <ul>
+            <li>Combina as funções de posição e cor para criar o objeto food.</li>
+        </ul><br>
+    </section>
+    <section id="5">
+        <h2>Passo 5: Desenhar o Jogo</h2>
+        <p>A função drawGame é chamada para desenhar a comida e a cobra no canvas.</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-4">
+const drawGame = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Desenha a comida
+    ctx.fillStyle = food.color;
+    ctx.fillRect(food.x, food.y, 30, 30);
+
+    // Desenha a cobra
+    snake.forEach((segment, index) => {
+        ctx.fillStyle = index === snake.length - 1 ? 'white' : '#ddd';
+        ctx.fillRect(segment.x, segment.y, 30, 30);
+    });
+};
+            </pre>
+        </div>
+        <ul>
+            <li>Comida: Desenhada como um quadrado 30x30.</li>
+            <li>Cobra: Cada segmento é um quadrado 30x30. A cabeça tem cor diferente.</li>
+        </ul><br>
+    </section>
+    <section id="6">
+        <h2>Passo 6: Movimento da Cobra</h2>
+        <p>A função moveSnake define como a cobra se move e lida com a lógica de comer comida.</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-5">
+                const moveSnake = () => {
+                    const head = { ...snake[snake.length - 1] }; // Pega a cabeça atual
+                
+                    if (direction === "right") head.x += 30;
+                    if (direction === "left") head.x -= 30;
+                    if (direction === "down") head.y += 30;
+                    if (direction === "up") head.y -= 30;
+                
+                    setSnake((prev) => {
+                        const newSnake = [...prev, head];
+                
+                        if (head.x === food.x && head.y === food.y) { // Comeu a comida
+                            setScore((prev) => prev + 10);
+                            eatingAudio.current.play();
+                            setFood(getRandomFood());
+                            return newSnake; // Não remove a cauda
+                        } else {
+                            newSnake.shift(); // Remove o primeiro segmento
+                            return newSnake;
+                        }
+                    });
+                
+                    checkCollision(head); // Verifica colisões
+                };
+                
+            </pre>
+        </div><br>
+    </section>
+    <section id="7">
+        <h2>Passo 7: Verificar Colisões</h2>
+        <p>A função checkCollision identifica se a cobra bateu em uma parede ou em si mesma.</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-6">
+                const checkCollision = (head) => {
+                    const wallCollision = head.x < 0 || head.x >= 600 || head.y < 0 || head.y >= 600;
+                    const selfCollision = snake.slice(0, -1).some((segment) => segment.x === head.x && segment.y === head.y);
+                
+                    if (wallCollision || selfCollision) {
+                        collisionAudio.current.play();
+                        setGameOver(true); // Finaliza o jogo
+                    }
+                };
+                
+            </pre>
+        </div>
+        <br>
+    </section>
+    <section id="8">
+        <h2>Passo 8: Loop do Jogo</h2>
+        <p>O loop principal é configurado com useEffect:</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-5">
+                useEffect(() => {
+                    if (!gameOver) {
+                        const gameLoop = setInterval(() => {
+                            drawGame();
+                            moveSnake();
+                        }, 200); // Atualiza a cada 200ms
+                        return () => clearInterval(gameLoop); // Limpa o loop ao desmontar
+                    } else {
+                        setTimeout(() => {
+                            gameOverAudio.current.play();
+                        }, collisionAudio.current.duration * 1000);
+                    }
+                }, [snake, direction, gameOver]);
+                
+            </pre>
+        </div>
+        <p>A cada 200ms, redesenhamos o jogo e movemos a cobra, até que o jogo acabe.</p><br>
+    </section>
+    <section id="9">
+        <h2>Passo 9: Controle de Teclado</h2>
+        <p>Usamos outro useEffect para capturar eventos de teclado:</p>
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-6">
+                useEffect(() => {
+                    const handleKeyDown = (e) => {
+                        if (e.key === "ArrowRight" && direction !== "left") setDirection("right");
+                        if (e.key === "ArrowLeft" && direction !== "right") setDirection("left");
+                        if (e.key === "ArrowDown" && direction !== "up") setDirection("down");
+                        if (e.key === "ArrowUp" && direction !== "down") setDirection("up");
+                    };
+                
+                    window.addEventListener("keydown", handleKeyDown);
+                    return () => {
+                        window.removeEventListener("keydown", handleKeyDown); // Remove ao desmontar
+                    };
+                }, [direction]);
+                
+            </pre>
+        </div>
+        <p>Controla a direção da cobra usando as setas do teclado.</p>
+    </section>
+
+    <section id="10">
+        <h2>Passo 10: Reniciar o jogo</h2><br>
+        
+        <div class="code-container">
+            <div class="code-header">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre class="code-block" id="code-snippet-6">
+                const restartGame = () => {
+                    setSnake([{ x: 270, y: 240 }]);
+                    setFood(getRandomFood());
+                    setScore(0);
+                    setDirection(null);
+                    setGameOver(false);
+                };
+                
+            </pre>
+        </div>
+        <p>* Reinicia os estados para começar o jogo novamente.</p>
+    </section>
+    <section id="11">
+        <h2>Passo 11: Renderização Final e Tela de GameOver</h2>
+            <div class="code-container">
+                <div class="code-header">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre class="code-block" id="code-snippet-10">
+                    return (
+                        &lt;div className="App"&gt;
+                            &lt;div className="score"&gt;Score: {score}&lt;/div&gt;
+                            &lt;canvas ref={canvasRef} width={600} height={600} style={{ backgroundColor: '#111' }} /&gt;
+                            {gameOver &amp;&amp; (
+                                &lt;div className="overlay"&gt;
+                                    &lt;div className="menu-screen"&gt;
+                                        &lt;span className="game-over"&gt;Game Over&lt;/span&gt;
+                                        &lt;span className="final-score"&gt;Score: {score}&lt;/span&gt;
+                                        &lt;button className="btn-play" onClick={restartGame}&gt;Jogar novamente&lt;/button&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            )}
+                        &lt;/div&gt;
+                    );
+                </pre>
+            </div>
+            <p>No return, renderizamos o canvas e uma tela de "Game Over" caso o jogo termine.</p><br>
+            <p>Explicação da Renderização:</p>
+            <ul>
+                <li>Score: Exibe a pontuação do jogador no topo da tela.</li>
+                <li>Canvas: O canvas é usado para desenhar a cobra e a comida. Ele tem uma largura e altura de 600x600 pixels.</li>
+                <li>Tela de Game Over: Quando o jogo termina (gameOver é true), uma tela aparece mostrando a pontuação final e um botão para reiniciar o jogo.</li>
+            </ul><br>
+    </section>
+    <section id="12">
+            <h2>Passo 12: Estilização </h2>
+            <p>Estilos CSS: Não se esqueça de definir estilos básicos no App.css para deixar o jogo bonito e a tela de Game Over bem posicionado.</p>
+            <p>Aqui um exemplo de CSS:</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre class="code-block" id="code-snippet-6">
+                    .App {
+                        text-align: center;
+                        color: white;
+                    }
+                    
+                    .score {
+                        font-size: 20px;
+                        margin: 20px;
+                    }
+                    
+                    canvas {
+                        margin-top: 20px;
+                    }
+                    
+                    .overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: rgba(0, 0, 0, 0.7);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    
+                    .menu-screen {
+                        text-align: center;
+                    }
+                    
+                    .game-over {
+                        font-size: 50px;
+                        color: white;
+                    }
+                    
+                    .final-score {
+                        font-size: 30px;
+                        margin: 10px 0;
+                    }
+                    
+                    .btn-play {
+                        background-color: #00ff00;
+                        padding: 10px 20px;
+                        font-size: 18px;
+                        border: none;
+                        cursor: pointer;
+                    }
+                    
+                    .btn-play:hover {
+                        background-color: #00cc00;
+                    }
+                    
+                </pre>
+            </div>
+            <p>Este CSS vai posicionar o jogo centralizado na tela e adicionar um estilo para a tela de "Game Over", além de um efeito no botão de reinício.</p> <br>
+    </section>
+        
+    </div>
+    <section id="contato">
+    <footer>
+        <p>&copy; 2024 Tutorious. Todos os direitos reservados.</p>
+        <p>
+          <a href="https://www.exemplo.com/privacidade">Política de Privacidade</a> | 
+          <a href="https://www.exemplo.com/contato">Contato</a>
+        </p>
+      </footer>
+    </section> 
+</body>
+</html>

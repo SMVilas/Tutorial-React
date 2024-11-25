@@ -1,0 +1,197 @@
+/* Estilo geral */
+body {
+    background: linear-gradient(135deg, #005d5f, #030b0b,#005d5f,#030b0b);
+    color: #e8e8e8; /* Para garantir que o texto fique legível */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    
+}
+.container  {
+   
+    margin-top: 50px; /* Move o texto para baixo */
+    margin-left: 325px; /* Move o texto para a direita */
+    margin-right: 325px;
+
+}
+.container a {
+    color: #2babaf; /* Cor dos links */
+    text-decoration: none; /* Remove o sublinhado */
+}
+/* Navbar */
+.navbar {
+    background-color: #121d1d;
+    padding: 10px 20px;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 46%;
+    margin: 0px;
+}
+
+.navbar .logo a img {
+    height: 110px; 
+    margin: -15%;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar .nav-links li {
+    position: relative;
+}
+
+.navbar .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.navbar .nav-links li a:hover {
+    background-color: #192727;
+}
+
+.navbar .nav-links li .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #1d2e2e;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+}
+
+.navbar .nav-links li:hover .dropdown {
+    display: block;
+}
+
+.navbar .nav-links li .dropdown li {
+    width: 200px;
+}
+
+.navbar .nav-links li .dropdown li a {
+    padding: 10px;
+    background-color: #1d2e2e;
+    color: #fff;
+}
+
+.navbar .nav-links li .dropdown li a:hover {
+    background-color: #666;
+}
+
+/* Mobile menu */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s;
+}
+
+.nav-links.show {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 800px) {
+    .navbar .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #333;
+        padding: 20px 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .menu-toggle.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+}
+
+/* Bloco de código */
+.code-container {
+    background-color: #121d1d;
+    border: 1px solid #2a7c7d;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 900px;
+    color: #333;
+    text-align: left;
+}
+
+.code-header {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #0f1818;
+    padding: 5px 10px;
+    border-bottom: 1px solid #000000;
+}
+
+.copy-btn {
+    background-color: #104849;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.copy-btn:hover {
+    background-color: #0c3334;
+}
+
+.code-block {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #1c2c2c;
+    padding: 15px;
+    color: #2babaf;
+    overflow-x: auto;
+    white-space: pre-wrap;
+}
+footer {
+    background-color: #121d1d; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    text-align: center; /* Alinha o texto ao centro */
+    padding: 20px; /* Espaçamento interno */
+    position: relative; /* Define a posição como relativa */
+    bottom: 0; /* Mantém o rodapé no final */
+  }
+
+  footer a {
+    color: #1b7071; /* Cor dos links */
+    text-decoration: none; /* Remove o sublinhado */
+  }
+
+  footer a:hover {
+    text-decoration: underline; /* Sublinha ao passar o mouse */
+  }

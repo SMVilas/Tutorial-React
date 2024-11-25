@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+
+# Dependências do build
+build/
+dist/
+
+# Arquivos temporários
+*.log
+*.tmp
+
+# Arquivos específicos do editor de código
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store  # Para MacOS
+Thumbs.db   # Para Windows
