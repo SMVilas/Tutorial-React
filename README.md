@@ -1,4 +1,4 @@
-Nesse projeto vamos ensinar a usar o react enquanto fazemos um jogo.
+Nesse projeto vamos mostrar como fazer o SnakeGame usando React, para ajudar no aprendizado do mesmo.
 
 Integrantes do grupo:
 
